@@ -1,30 +1,28 @@
-import mongoose, { connect } from "mongoose";
-
-
-
-// require('dotenv').config({path : './env'})
-
+import mongoose from "mongoose";
+// import express from "express";  // Import express to initialize `app`
 import connectDB from "./db/index.js";
-
+import {app}  from "./app.js";
 import dotenv from 'dotenv';
-dotenv.config({
-    path: './env'
-})
+
+// Load environment variables
+dotenv.config({ path: './.env' });
+
+// Initialize Express app
+// const app = express();
 
 
 
-// function connectDB(){}
-
-
+// MongoDB connection logic
 connectDB()
-.then(()=>{
-    app.listen(process.env.PORT || 8000 ,()=>{
-        console.log(`Server is running on port ${process.env.PORT}`)
-    })
+.then(() => {
+    // Start the server only if the database connection is successful
+    app.listen(process.env.PORT || 8000, () => {
+        console.log(`Server is running on port ${process.env.PORT || 8000}`);
+    });
 })
-.catch((err)=>{
-    console.log("MONGODB CONNECTION ERROR : ",err)
-})
+.catch((err) => {
+    console.log("MONGODB CONNECTION ERROR: ", err);
+});
 
 
 
